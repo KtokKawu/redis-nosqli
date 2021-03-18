@@ -1,0 +1,25 @@
+= Redis + Lua における NoSQL Injection のテスト
+
+* WSL2で適当なRedisサーバを立てて検証 +
+WindowsのコマンドプロンプトでPython動かして、 +
+WSLのRedisに接続するにはプロテクトモードを解除しないといけない。
++
+[source,wsl]
+----
+redis-server --protected-mode no &
+----
++
+* nosqli-test-server.pyのWSL(Redis)_IPを編集する
+* ホストのWindowsにて、下記コマンドで検証用サーバをたてる。
++
+[source,cmd]
+----
+python nosqli-test-server.py
+----
++
+* 検査文字列「1') and redis.call('info」とかで +
+Luaスクリプトを介してNoSQLiを実行できる。
+
+r.execute_command()とかに直接パラメータ値を入れてる場合もNoSQLiできるはず。 +
+普通はそんな実装しないけど。
+
