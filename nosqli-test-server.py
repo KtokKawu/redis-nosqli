@@ -1,9 +1,7 @@
 # coding: utf-8
 
 import http.server as serv
-from urllib.parse import urlparse
 from urllib.parse import parse_qs
-import json
 import redis
 
 pool = redis.ConnectionPool(host='WSL(Redis)_IP', port=6379, db=0)
@@ -11,8 +9,6 @@ r = redis.StrictRedis(connection_pool=pool)
 
 class MyHandler(serv.BaseHTTPRequestHandler):
     def do_GET(self):
-
-        parsed_path = urlparse(self.path)
         with open('./html/index.html' , encoding='utf-8') as f:
             html = f.read()
         self.send_response(200)
